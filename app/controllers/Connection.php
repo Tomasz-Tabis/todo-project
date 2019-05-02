@@ -1,10 +1,10 @@
 <?php
-namespace Database;
-include __DIR__ . '/../config/Database.php';
+namespace App\Controllers;
+include "../../config/Database.php";
+use Config\Database;
 
 class Connection
 {
-
     static public function createConnection(){
         $db = new Database();
         $server_address = $db->server_address;
