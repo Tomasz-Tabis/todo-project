@@ -1,4 +1,8 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php';
+if (isset($_SESSION['loggedIn'])){
+    header("Location: list.php");
+}
+?>
 <div class="d-flex justify-content-center">
     <form action="app/controllers/LoginController.php/login" method="POST" class="login col-md-6 col-sm-12 flex-column">
         <div class="text-center mt-3 mb-5">

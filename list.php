@@ -1,4 +1,8 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php';
+if (!isset($_SESSION['loggedIn'])){
+    header("Location: index.php");
+}
+?>
 <div class="actions mb-3">
     <a href="add-task.php" class="btn btn-success" >Add task</a>
     <a href="" class="btn btn-danger float-right" >Remove more</a>

@@ -4,13 +4,21 @@ namespace App\Controllers;
 include "../User.php";
 use App\User;
 
+session_start();
+
 $path = $_SERVER['PATH_INFO'];
 switch ($path){
     case '/login':
+        if (isset($_SESSION['loggedIn'])){
+            header("Location: ../../../list.php");
+        }
         $login = new LoginController();
         $login->login();
         break;
     case '/logout':
+        if (!isset($_SESSION['loggedIn'])){
+            header("Location: ../../../index.php");
+        }
         $login = new LoginController();
         $login->logout();
         break;

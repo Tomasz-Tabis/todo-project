@@ -1,4 +1,8 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php';
+if (isset($_SESSION['loggedIn'])){
+    header("Location: list.php");
+}
+?>
 
 <div class="d-flex justify-content-center">
 

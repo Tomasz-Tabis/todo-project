@@ -3,10 +3,15 @@ namespace App\Controllers;
 include "../User.php";
 use App\User;
 
+session_start();
+
 $path = $_SERVER['PATH_INFO'];
 switch ($path){
 
     case '/register':
+        if (isset($_SESSION['loggedIn'])){
+            header("HTTP/1.0 403 Forbidden");
+        }
         $register = new RegisterController();
         $register->register();
         break;
