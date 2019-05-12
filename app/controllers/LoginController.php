@@ -1,25 +1,27 @@
 <?php
 
 namespace App\Controllers;
-include "../User.php";
+
+include_once __DIR__ . "/../Classes.php";
+
 use App\User;
 
 session_start();
 
 $path = $_SERVER['PATH_INFO'];
+$login = new LoginController();
+
 switch ($path){
     case '/login':
         if (isset($_SESSION['loggedIn'])){
             header("Location: ../../../list.php");
         }
-        $login = new LoginController();
         $login->login();
         break;
     case '/logout':
         if (!isset($_SESSION['loggedIn'])){
             header("Location: ../../../index.php");
         }
-        $login = new LoginController();
         $login->logout();
         break;
     default:
@@ -45,6 +47,6 @@ class LoginController
 
     public function logout(){ //GOOD
         session_destroy();
-        header('Location: ../index.php');
+        header('Location: ../../../index.php');
     }
 }

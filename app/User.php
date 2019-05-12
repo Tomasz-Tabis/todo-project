@@ -3,7 +3,7 @@
 namespace App;
 use App\Controllers\Connection;
 
-include __DIR__ . '/controllers/Connection.php';
+include_once __DIR__ . "/Classes.php";
 
 class User
 {
@@ -40,6 +40,17 @@ class User
         return $this->find($conn->lastInsertId());
     }
 
+    //Find user ID
+    public static function find($id){
+        $conn = Connection::createConnection();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE `id` = :id");
+        $stmt->execute(array("id" => $id));
+        $user = new User();
+        $user->set($stmt->fetch());
+        return $user;
+    }
+
+
     public function where($a, $b, $c){
         if ($this->whereQuery != null){
             $this->whereQuery .= " AND";
@@ -56,14 +67,19 @@ class User
         return $this;
     }
 
-    //Find user ID
-    public static function find($id){
+    public static function all(){
         $conn = Connection::createConnection();
-        $stmt = $conn->prepare("SELECT * FROM users WHERE `id` = :id");
-        $stmt->execute(array("id" => $id));
-        $user = new User();
-        $user->set($stmt->fetch());
-        return $user;
-    }
+        $stmt = $conn->prepare("SELECT * FROM users");
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+        $users = array();
 
+        foreach ($rows as $row){
+            $user = new User();
+            $user->set($row);
+            array_push($users, $user);
+        }
+
+        return $users;
+    }
 }

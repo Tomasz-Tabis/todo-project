@@ -1,6 +1,6 @@
 <?php
 namespace App\Controllers;
-include "../../config/Database.php";
+include_once __DIR__ . "/../Classes.php";
 use Config\Database;
 
 class Connection
@@ -15,7 +15,7 @@ class Connection
         try{
             $conn = new \PDO("mysql:host=" . $server_address . ";dbname=" . $database_name , $username, $password);
             $conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
-//            $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION); //(To error's set it on)
+            $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION); //(To error's set it on)
             return $conn;
         }catch(\PDOException $e){
             return 'Connection failed: ' . $e->getMessage();
