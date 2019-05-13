@@ -16,11 +16,10 @@ $tasks = \App\Task::all($sort);
     <form action="" method="get">
         <label for="sort">Sort</label>
         <select name="sort" id="sort">
-            <option value="0"  <?php if($sort == 0) { echo "selected"; } ?>>Maak uw keuze...</option>
+            <option value="0"  <?php if($sort == 0) { echo "selected"; } ?>>End date ASC</option>
             <option value="1"  <?php if($sort == 1) { echo "selected"; } ?>>Title ASC</option>
             <option value="2"  <?php if($sort == 2) { echo "selected"; } ?>>Title DESC</option>
-            <option value="3"  <?php if($sort == 3) { echo "selected"; } ?>>End date ASC</option>
-            <option value="4"  <?php if($sort == 4) { echo "selected"; } ?>>End date DESC</option>
+            <option value="3"  <?php if($sort == 3) { echo "selected"; } ?>>End date DESC</option>
         </select>
         <button type="submit">Sort</button>
     </form>
@@ -43,7 +42,7 @@ $tasks = \App\Task::all($sort);
     </thead>
     <tbody>
     <?php foreach ($tasks as $task){ ?>
-    <tr class="<?php if ($task->complete == 1) { echo "table-active"; } ?>">
+    <tr class="<?php if ($task->complete == 1) { echo "table-active"; }; if($task->end_date < date('Y-m-d')){echo "bg-danger";};?>">
         <td><?php echo $task->title; ?></td>
         <td><?php echo implode(' ', array_slice(explode(' ', $task->content), 0, 5));?></td>
         <td><?php echo date("d-m-Y", strtotime($task->end_date)); ?></td>

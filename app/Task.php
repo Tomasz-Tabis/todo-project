@@ -69,13 +69,10 @@ class Task
                 $sort = ",title DESC";
                 break;
             case 3:
-                $sort = ",end_date ASC";
-                break;
-            case 4:
                 $sort = ",end_date DESC";
                 break;
             default:
-                $sort = "";
+                $sort = ",end_date ASC";
         }
 
 
@@ -111,15 +108,4 @@ class Task
 
         return $this;
     }
-
-//    public function delete(){
-//        $conn = Connection::createConnection();
-//        $stmt = $conn->prepare("UPDATE tasks SET deleted_at = :deleted_at WHERE id=:id");
-//        $stmt->execute(array(
-//            "id" => $this->id,
-//            "deleted_at" => date("Y-m-d"),
-//        ));
-//
-//        return $this;
-//    }
 }
