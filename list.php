@@ -43,12 +43,12 @@ $tasks = \App\Task::all($sort);
     <tbody>
     <?php foreach ($tasks as $task){ ?>
     <tr class="<?php if ($task->complete == 1) { echo "table-active"; }; if($task->end_date < date('Y-m-d')){echo "bg-danger";};?>">
-        <td><?php echo $task->title; ?></td>
+        <td><?php echo implode(' ', array_slice(explode(' ', $task->title), 0, 3)) ?></td>
         <td><?php echo implode(' ', array_slice(explode(' ', $task->content), 0, 5));?></td>
         <td><?php echo date("d-m-Y", strtotime($task->end_date)); ?></td>
         <td><?php echo date("d-m-Y", strtotime($task->updated_at)); ?></td>
         <td class="">
-            <a href="" class="btn btn-info" >Detail</a>
+            <a href="task-detail.php?id=<?php echo $task->id; ?>" class="btn btn-info" >Detail</a>
             <?php if ($task->complete == 0) {?>
             <a href="app/controllers/TasksController.php/complete?id=<?php echo $task->id; ?>" class="btn btn-primary" >Completed</a>
             <a href="edit-task.php?id=<?php echo $task->id; ?>" class="btn btn-warning" >Edit</a>
